@@ -1,3 +1,40 @@
+ uso estricto '
+const  cote  =  require ( ' cote ' )
+
+/ *       entiendo /
+ * Este es el principal punto de entrada donde comenzamos.
+ *
+ * Salir/
+ * Comience nuestro microservicio.
+ */
+función  main () {
+    startMicroservice ()
+}
+
+/ * clave de microservicio (identidad del microservicio) * /
+let msKey =  ' everlife-secret-msg '
+
+función  startMicroservice () {
+
+    / *       entiendo /
+     * El microservicio (particionado por clave para evitar
+     * en conflicto con otros servicios).
+     */
+    const svc = new cote.Responder({
+        nombre :  ' Habilidad del mensaje secreto de Everlife ' ,
+        clave : msKey,
+    })
+
+    / *       resultado /
+     * Responde a los mensajes de los usuarios que nos solicitan codificar / decodificar cosas
+     */
+    svc . on ( ' msg ' , ( req , cb ) => {
+        // TODO:
+    })
+
+}
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const chalk = require('chalk');
 
 
@@ -5,8 +42,9 @@ var markets = [];
 var boughtCurrencies = [];
 var marketFilters = {};
 
-const APIKEY = '';
-const APISECRET = '';
+const APIKEY = 'PSypeVuKXjWMWjczBJoVXD0QrO12oXqpuUKyJTafA3CjUluwyno6OIJW6FzLtrSw';
+const APISECRET = '51VKxzvtIvE91P37fGUTJlEn4p7a0tqplh3jQdM2Hdy4uaAJb33dIGulyJNmOhxS';
+
 
 
 const binance = require('node-binance-api')().options({
@@ -25,11 +63,10 @@ var tradeRules = {
     sellTarget: 1.02,
     buyTarget: 0.98
 }
-
 binance.balance(function (error, data) {
     console.log(chalk.yellow('\n', new Date().toUTCString(), 'YOUR CURRENT', tradeRules.currency, "BALANCE IS:"));
     console.log(chalk.yellow(JSON.stringify(data[tradeRules.currency]), '\n'));
-    boughtCurrencies[tradeRules.currency] = data[tradeRules.currency].available;
+//    boughtCurrencies[tradeRules.currency] = data[tradeRules.currency].available;
 });
 
 binance.exchangeInfo(function (error, data) {
@@ -127,3 +164,4 @@ function filter(filtersForMarket, quantity, price) {
 
     return {quantity, price};
 }
+main ()
